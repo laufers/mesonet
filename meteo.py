@@ -23,14 +23,23 @@ wspd = np.ma.array(wspd, mask = (wspd == -996))
 fig = plt.figure()
 
 plt.subplot(4,1,1)
-plt.plot(time,pres)
+plt.plot(time,pres,'black')
+plt.xlabel('Minutes after 00z')
+plt.ylabel('pressure (mb)')
 
 plt.subplot(4,1,2)
-plt.plot(time,relh)
+plt.plot(time,relh,'green')
+plt.xlabel('Minutes after 00z')
+plt.ylabel('Rel. Humidity')
 
 plt.subplot(4,1,3)
 plt.plot(time,tmpc,'r')
+plt.xlabel('Minutes after 00z')
+plt.ylabel('Temperature C')
 
 plt.subplot(4,1,4)
 plt.plot(time,wspd)
+plt.xlabel('Minutes after 00z')
+plt.ylabel('Wind Speed m/s')
+
 plt.show()
