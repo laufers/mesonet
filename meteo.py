@@ -19,27 +19,24 @@ pres = np.ma.array(pres, mask = (pres == -996))
 tmpc = np.ma.array(tmpc, mask = (tmpc == -996))
 wspd = np.ma.array(wspd, mask = (wspd == -996))
 
-
 fig = plt.figure()
 
-plt.subplot(4,1,1)
-plt.plot(time,pres,'black')
-plt.xlabel('Minutes after 00z')
-plt.ylabel('pressure (mb)')
+# Set up of dictionary for use of strings and variable names
+# Strings first owing to non hashing of arrays
+# tuple added to include color
+varname = {'Rel. Humidity' : (relh,'green'), 'Pressure mb' : (pres,'black'), 
+    'Temperature C' : (tmpc,'red'), 'Windspeed knots' : (wspd, 'blue')}
 
-plt.subplot(4,1,2)
-plt.plot(time,relh,'green')
-plt.xlabel('Minutes after 00z')
-plt.ylabel('Rel. Humidity')
+# Needed prior to the creation of the dictionary
+# pltlist = [relh, pres, tmpc, wspd]
 
-plt.subplot(4,1,3)
-plt.plot(time,tmpc,'r')
-plt.xlabel('Minutes after 00z')
-plt.ylabel('Temperature C')
-
-plt.subplot(4,1,4)
-plt.plot(time,wspd)
-plt.xlabel('Minutes after 00z')
-plt.ylabel('Wind Speed m/s')
-
+# careful when calling dictionary that tuple is split out and in the case of the y axis
+# remember to keep the dictionary aray
+for panel,metvar in enumerate(varname, start=1):
+    plt.subplot(len(varname),1,panel)
+    var,colr = varname[metvar]
+    plt.plot(time, var, colr)
+    plt.xlabel('Mintues after 00z')
+    plt.ylabel(metvar)
 plt.show()
+
