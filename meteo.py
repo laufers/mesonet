@@ -3,6 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 # imports matlab like ploting and alaised
 
+# my first funtion
+def tmp2f (arg):
+	ntmp = (9./5. *arg) + 32.
+	return ntmp;
+	
 
 #x = np.loadtxt('20120229nrmn.mts', skiprows = 3, usecols = [3,12], unpack = True)
 # second method allowing for headers to be read in as data
@@ -18,6 +23,7 @@ relh = np.ma.array(relh, mask = (relh == -996))
 pres = np.ma.array(pres, mask = (pres == -996))
 tmpc = np.ma.array(tmpc, mask = (tmpc == -996))
 wspd = np.ma.array(wspd, mask = (wspd == -996))
+tmpf = tmp2f(tmpc)
 
 fig = plt.figure()
 
@@ -25,7 +31,8 @@ fig = plt.figure()
 # Strings first owing to non hashing of arrays
 # tuple added to include color
 varname = {'Rel. Humidity' : (relh,'green'), 'Pressure mb' : (pres,'black'), 
-    'Temperature C' : (tmpc,'red'), 'Windspeed knots' : (wspd, 'blue')}
+    'Temperature C' : (tmpc,'red'), 'Windspeed knots' : (wspd, 'blue'),
+    'Temperature F' : (tmpf,'red'),}
 
 # Needed prior to the creation of the dictionary
 # pltlist = [relh, pres, tmpc, wspd]
