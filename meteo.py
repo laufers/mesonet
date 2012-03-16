@@ -13,7 +13,9 @@ def tmp2f (arg):
 # second method allowing for headers to be read in as data
 #x = np.genfromtxt('20120229nrmn.mts',dtype = None, names = True, skip_header = 2)
 
-time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, usecols = [2,3,4,5,12], unpack = True)
+# time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, usecols = [2,3,4,5,12], unpack = True)
+data = np.genfromtxt('20120301nrmn.mts', skiprows = 2 , dtype= None, names = True)
+
 
 # post processing of data to facilitate plotting, this ignores missing data and uses the standard NaN(not a number)
 #relh[relh==-996] = np.nan
