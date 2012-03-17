@@ -7,7 +7,10 @@ import matplotlib.pyplot as plt
 def tmp2f (arg):
 	ntmp = (9./5. *arg) + 32.
 	return ntmp;
-	
+
+def dewpoint(rh, tmpc):
+	dptc = (rh/100)**(1/8) * (112 + .9 * tmpc) + .1* tmpc - 112
+	return dptc;
 
 #x = np.loadtxt('20120229nrmn.mts', skiprows = 3, usecols = [3,12], unpack = True)
 # second method allowing for headers to be read in as data
@@ -26,13 +29,15 @@ pres = np.ma.array(data["PRES"], mask = (data["PRES"] == -996))
 tmpc = np.ma.array(data["TAIR"], mask = (data["TAIR"] == -996))
 wspd = np.ma.array(data["WSPD"], mask = (data["WSPD"] == -996))
 tmpf = tmp2f(tmpc)
+dptf = tmp2f(dewpoint(relh, tmpc))
 
 fig = plt.figure()
 
 # Set up of dictionary for use of strings and variable names
 # Strings first owing to non hashing of arrays
 # tuple added to include color
-varname = {'Rel. Humidity' : (relh,'green'), 
+varname = {'Rel. Humidity' : (relh,'green'),
+		   'Dewpoint F'	   : (dptf, 'green'), 
 		   'Pressure mb' : (pres,'black'),
 #		   'Temperature C' : (tmpc,'red'), 
 		   'Windspeed knots' : (wspd, 'blue'),
