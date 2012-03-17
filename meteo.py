@@ -14,17 +14,17 @@ def tmp2f (arg):
 #x = np.genfromtxt('20120229nrmn.mts',dtype = None, names = True, skip_header = 2)
 
 # time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, usecols = [2,3,4,5,12], unpack = True)
-data = np.genfromtxt('20120301nrmn.mts', skiprows = 2 , dtype= None, names = True)
+data = np.genfromtxt('20120317nrmn.mts', skiprows = 2 , dtype= None, names = True)
 
 
 # post processing of data to facilitate plotting, this ignores missing data and uses the standard NaN(not a number)
 #relh[relh==-996] = np.nan
 
 # second method to mask(remove, ignore) data in preperation for display or analytics.
-relh = np.ma.array(relh, mask = (relh == -996))
-pres = np.ma.array(pres, mask = (pres == -996))
-tmpc = np.ma.array(tmpc, mask = (tmpc == -996))
-wspd = np.ma.array(wspd, mask = (wspd == -996))
+relh = np.ma.array(data["RELH"], mask = (data["RELH"] == -996))
+pres = np.ma.array(data["PRES"], mask = (data["PRES"] == -996))
+tmpc = np.ma.array(data["TAIR"], mask = (data["TAIR"] == -996))
+wspd = np.ma.array(data["WSPD"], mask = (data["WSPD"] == -996))
 tmpf = tmp2f(tmpc)
 
 fig = plt.figure()
@@ -32,9 +32,11 @@ fig = plt.figure()
 # Set up of dictionary for use of strings and variable names
 # Strings first owing to non hashing of arrays
 # tuple added to include color
-varname = {'Rel. Humidity' : (relh,'green'), 'Pressure mb' : (pres,'black'), 
-    'Temperature C' : (tmpc,'red'), 'Windspeed knots' : (wspd, 'blue'),
-    'Temperature F' : (tmpf,'red'),}
+varname = {'Rel. Humidity' : (relh,'green'), 
+		   'Pressure mb' : (pres,'black'),
+#		   'Temperature C' : (tmpc,'red'), 
+		   'Windspeed knots' : (wspd, 'blue'),
+		   'Temperature F' : (tmpf,'red'),}
 
 # Needed prior to the creation of the dictionary
 # pltlist = [relh, pres, tmpc, wspd]
@@ -44,7 +46,7 @@ varname = {'Rel. Humidity' : (relh,'green'), 'Pressure mb' : (pres,'black'),
 for panel,metvar in enumerate(varname, start=1):
     plt.subplot(len(varname),1,panel)
     var,colr = varname[metvar]
-    plt.plot(time, var, colr)
+    plt.plot(data['TIME'], var, colr)
     plt.xlabel('Mintues after 00z')
     plt.ylabel(metvar)
 plt.show()
