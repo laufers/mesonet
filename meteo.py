@@ -9,7 +9,8 @@ def tmp2f (arg):
 	return ntmp;
 
 def dewpoint(rh, tmpc):
-	dptc = (rh/100)**(1/8) * (112 + .9 * tmpc) + .1* tmpc - 112
+	H = (np.log10(rh) - 2)/0.4343 + (17.62 * tmpc)/(243.12 + tmpc)
+	dptc = 243.12 * H / (17.62 - H)
 	return dptc;
 
 #x = np.loadtxt('20120229nrmn.mts', skiprows = 3, usecols = [3,12], unpack = True)
