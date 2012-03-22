@@ -21,11 +21,12 @@ def dewpoint(rh, tmpc):
 
 # time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, usecols = [2,3,4,5,12], unpack = True)
 # data read now includes test for missing data (-996,-995) as used by the OklaMesonet
-data = np.genfromtxt('20120317nrmn.mts', skiprows = 2 , dtype= None, names = True, missing_values = {None:["-996","-995"]}, usemask = True)
+data = np.genfromtxt('20120317nrmn.mts', skiprows = 2 , dtype = None, names = True, 
+					  missing_values = {None:["-996","-995"]}, usemask = True)
 
 
 # post processing of data to facilitate plotting, this ignores missing data and uses the standard NaN(not a number)
-#relh[relh==-996] = np.nan
+# relh[relh==-996] = np.nan
 
 # second method to mask(remove, ignore) data in preperation for display or analytics.
 
