@@ -37,8 +37,9 @@ data["TAIR"] = tmp2f(data["TAIR"])
 data = append_fields ( data, "DPTF", DPTF)
 
 
-fig = plt.figure(figsize=(6,8))
-#fig.set_size_inches(6,8)
+#fig = plt.figure(figsize=(12,10))
+fig = plt.figure()
+fig.set_size_inches(6,8)
 
 # Set up of dictionary for use of strings and variable names
 # Strings first owing to non hashing of arrays
