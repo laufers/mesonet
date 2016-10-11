@@ -1,19 +1,43 @@
 import numpy as np
-# alias for numpy
 from numpy.lib.recfunctions import append_fields
-# needed to import more functionality from numpy
 import matplotlib.pyplot as plt
-# imports matlab like ploting and alaised
+import datetime
+import urllib.request
+import sys
+
 
 # my first funtion
 def tmp2f (arg):
-	ntmp = (9./5. *arg) + 32.
-	return ntmp;
+    ntmp = (9./5. * arg) + 32.
+    return ntmp;
 
 def dewpoint(rh, tmpc):
-	H = (np.log10(rh) - 2)/0.4343 + (17.62 * tmpc)/(243.12 + tmpc)
-	dptc = 243.12 * H / (17.62 - H)
-	return dptc;
+    H = (np.log10(rh) - 2)/0.4343 + (17.62 * tmpc)/(243.12 + tmpc)
+    dptc = 243.12 * H / (17.62 - H)
+    return dptc;
+
+
+# default station is Norman and date is current
+now = datetime.datetime.now()
+
+today = datetime.datetime.now().strftime("%Y%m%d")
+
+station = 'nrmn'
+date = today
+
+if len(sys.argv) >= 2 :
+    station = sys.argv[1]
+
+if len(sys.argv) >=3 :  
+    date = sys.argv[2]
+    
+# Read in data from url www.mesonet.org
+filename = date + station + '.mts'  
+url = 'http://www.mesonet.org/data/public/mesonet/mts/' + date[0:4] +  '/' + date[4:6] + '/' + date[6:] + '/' + filename
+
+print (filename, url)
+data_get = urllib.request.urlopen(url)
+
 
 #x = np.loadtxt('20120229nrmn.mts', skiprows = 3, usecols = [3,12], unpack = True)
 # second method allowing for headers to be read in as data
@@ -21,7 +45,8 @@ def dewpoint(rh, tmpc):
 
 # time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, usecols = [2,3,4,5,12], unpack = True)
 # data read now includes test for missing data (-996,-995) as used by the OklaMesonet
-data = np.genfromtxt('data/20120317nrmn.mts', skip_header = 2 , dtype = None, names = True,
+# data = np.genfromtxt('data/20120317nrmn.mts', skip_header = 2 , dtype = None, names = True,
+data = np.genfromtxt(data_get, skip_header = 2 , dtype = None, names = True,
 					  missing_values = {None:["-996","-995"]}, usemask = True)
 
 
@@ -60,7 +85,7 @@ varPlotColor = dict(TAIR = 'red',
                     SRAD = 'dark yellow',
                     TIME = 'black')
 
-varPlotLabel = dict(TAIR = 'Temperature C',
+varPlotLabel = dict(TAIR = 'Temperature F',
                     RELH = 'Rel Humidity %',
                     WSPD = 'Wind Speed kts',
                     WDIR = 'Wind Direction',
