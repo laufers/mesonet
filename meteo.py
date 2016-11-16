@@ -18,6 +18,8 @@ def dewpoint(rh, tmpc):
 
 
 # default station is Norman and date is current
+# syntax is meteo.py [station] [date yyyymmdd]
+
 now = datetime.datetime.now()
 
 today = datetime.datetime.now().strftime("%Y%m%d")
@@ -47,7 +49,7 @@ data_get = urllib.request.urlopen(url)
 # data read now includes test for missing data (-996,-995) as used by the OklaMesonet
 # data = np.genfromtxt('data/20120317nrmn.mts', skip_header = 2 , dtype = None, names = True,
 data = np.genfromtxt(data_get, skip_header = 2 , dtype = None, names = True,
-					  missing_values = {None:["-996","-995"]}, usemask = True)
+					  missing_values = {None:["-995","-996","-999"]}, usemask = True)
 
 
 # post processing of data to facilitate plotting, this ignores missing data and uses the standard NaN(not a number)
@@ -87,17 +89,17 @@ varPlotColor = dict(TAIR = 'red',
 
 varPlotLabel = dict(TAIR = 'Temperature F',
                     RELH = 'Rel Humidity %',
-                    WSPD = 'Wind Speed kts',
+                    WSPD = 'Wind Speed m/s',
                     WDIR = 'Wind Direction',
                     RAIN = 'Rain 24 hour Accum ins',
                     DPTF = 'Dewpoint F',
                     PRES = 'Pressure mb',
                     SRAD = 'Solar Insolation W/m2',
-                    TIME = 'Minutes after midnight local (CST)')
+                    TIME = 'Minutes after midnight GMT (UTC)')
                    
 
 # Needed prior to the creation of the dictionary
-pltlist = ["TAIR", "DPTF", "PRES", "WSPD", "RAIN"]
+pltlist = ["TAIR", "DPTF", "PRES", "WSPD", "WDIR"]
 
 # careful when calling dictionary that tuple is split out and in the case of the y axis
 # remember to keep the dictionary aray
@@ -107,5 +109,8 @@ for panel,metvar in enumerate(pltlist, start=1):
     plt.xlabel(varPlotLabel["TIME"])
     plt.ylabel(varPlotLabel[metvar])
     plt.axis('tight')
-plt.show()
+
+#plt.show()
+
+plt.savefig('./plots/meteogram_' + station + '_' + date +'.png')
 
