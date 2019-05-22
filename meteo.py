@@ -7,8 +7,8 @@ import sys
 
 
 # my first funtion
-def tmp2f(arg):
-    ntmp = (9. / 5. * arg) + 32.
+def tmp2f(temp):
+    ntmp = (9. / 5. * temp) + 32.
     return ntmp
 
 
@@ -44,11 +44,12 @@ data_get = urllib.request.urlopen(url)
 
 # New line here
 
-#x = np.loadtxt('20120229nrmn.mts', skiprows = 3, usecols = [3,12], unpack = True)
+# x = np.loadtxt('20120229nrmn.mts', skiprows = 3, usecols = [3,12], unpack = True) 
 # second method allowing for headers to be read in as data
-#x = np.genfromtxt('20120229nrmn.mts',dtype = None, names = True, skip_header = 2)
+# x = np.genfromtxt('20120229nrmn.mts',dtype = None, names = True, skip_header = 2)
 
-# time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, usecols = [2,3,4,5,12], unpack = True)
+# time,relh,tmpc,wspd,pres = np.loadtxt('20120302nrmn.mts', skiprows = 3, 
+# usecols = [2,3,4,5,12], unpack = True)
 # data read now includes test for missing data (-996,-995) as used by the OklaMesonet
 # data = np.genfromtxt('data/20120317nrmn.mts', skip_header = 2 , dtype =
 # None, names = True,
@@ -56,7 +57,8 @@ data = np.genfromtxt(data_get, skip_header=2, dtype=None, names=True,
                      missing_values={None: ["-995", "-996", "-999"]}, usemask=True)
 
 
-# post processing of data to facilitate plotting, this ignores missing data and uses the standard NaN(not a number)
+# post processing of data to facilitate plotting, this ignores missing data and 
+# uses the standard NaN(not a number)
 # relh[relh==-996] = np.nan
 
 # second method to mask(remove, ignore) data in preperation for display or
@@ -70,7 +72,7 @@ data["TAIR"] = tmp2f(data["TAIR"])
 data = append_fields(data, "DPTF", DPTF)
 
 
-#fig = plt.figure(figsize=(12,10))
+# fig = plt.figure(figsize=(12,10))
 fig = plt.figure()
 fig.set_size_inches(6, 8)
 
