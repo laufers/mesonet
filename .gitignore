@@ -3,8 +3,7 @@ plots/
 .ipynb_checkpoints/
 *.ipynb
 test/
-ocs_data/
-
+www.mesonet.org/
 
 *.mdf
 *.ipynb
