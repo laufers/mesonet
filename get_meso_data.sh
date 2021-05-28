@@ -44,7 +44,7 @@ if [ "$q1" = 'd' ] || [ "$q1" = 'D' ]; then
 	echo $url_mdf
 	echo $url_mts
 
-elif [ "$q1" = 'm' ] || [ "$q1" = 'M' ]; then 
+elif [ "$q1" = 'm' ] || [ "$q1" = 'M' ] || [ "$q1" = '' ]; then 
 	echo ""
 	echo "Enter date for the month you wish to download."
 	echo ""
