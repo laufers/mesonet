@@ -15,3 +15,4 @@ Change mts (station data) to mdf (state hourly data)
 * Data files are a fixed width format for the columns of data. 
 * The data is structured to cover a 24 hour period based on UTC but is reported as time from midnight. 
 * missing or not reporting data uses the -99x format for reporting
+
