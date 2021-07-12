@@ -25,7 +25,7 @@ echo ""
 echo "This script will retreive Oklahoma Mesonet data for a"
 echo "particular day or month for data01 Mar 1994 - present"
 echo ""
-read -rp "Choos d for a day(d) or m for a month(m) data: " q1
+read -rp "Choose d for a day(d) or m for a month(m) data: " q1
 if [ "$q1" = 'd' ] || [ "$q1" = 'D' ]; then 
 	echo ""
 	echo "Enter date for the day you wish to download."
