@@ -1,10 +1,13 @@
 data/
 plots/
-.ipynb_checkpoints/
-*.ipynb
 test/
 www.mesonet.org/
+data
 
+.ipynb_checkpoints/
+*.ipynb
 *.mdf
 *.ipynb
-data
+*.log
+
+.DS_Store
